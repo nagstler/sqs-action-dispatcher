@@ -11,6 +11,7 @@ import (
 	"github.com/pkg/errors"
 )
 
+// ParseJSON unmarshals a JSON string into the given interface.
 func ParseJSON(data string, v interface{}) error {
 	err := json.Unmarshal([]byte(data), v)
 	if err != nil {
@@ -19,12 +20,14 @@ func ParseJSON(data string, v interface{}) error {
 	return nil
 }
 
+// LogError logs the given error if it is not nil.
 func LogError(err error) {
 	if err != nil {
 		log.Printf("Error: %v", err)
 	}
 }
 
+// NewAWSSession creates a new AWS session with the given region.
 func NewAWSSession(region string) (*session.Session, error) {
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String(region),
@@ -35,6 +38,7 @@ func NewAWSSession(region string) (*session.Session, error) {
 	return sess, nil
 }
 
+// IsAWSError checks if the given error is of the specified AWS error code.
 func IsAWSError(err error, code string) bool {
 	if awsErr, ok := err.(awserr.Error); ok {
 		return strings.Contains(awsErr.Code(), code)
