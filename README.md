@@ -1,15 +1,19 @@
 # SQS Action Dispatcher
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Maintainability](https://api.codeclimate.com/v1/badges/fe760284be051623a2d4/maintainability)](https://codeclimate.com/github/nagstler/sqs-action-dispatcher/maintainability)
 
 The SQS Action Dispatcher is a Go application that polls messages from an AWS Simple Queue Service (SQS) queue, processes the messages concurrently using worker goroutines, and dispatches actions based on the message content.
+
 ## Features
 - Polls messages from an SQS queue in batches for improved throughput
 - Processes messages concurrently using worker goroutines
 - Moves failed messages to a Dead Letter Queue (DLQ) for further inspection
 - Dispatches actions based on message content (e.g., send an SNS notification)
+
 ## Prerequisites
 - Go 1.16 or higher
 - AWS account with an SQS queue and optional DLQ configured
 - AWS CLI or environment variables with access to the SQS queue
+
 ## Getting Started
 1. Clone the repository:
 
@@ -82,47 +86,3 @@ The SNS action sends a message to an SNS topic. To use the SNS action, your mess
 
 
 When the SQS Action Dispatcher receives a message with this format, it will send the specified message to the SNS topic.
-## Custom Actions
-
-To add custom actions, follow these steps: 
-1. Create a new file in the `actions` folder, e.g., `my_action.go` 
-2. Define a struct that implements the `Action` interface:
-
-```go
-
-type MyAction struct{}
-
-func (a *MyAction) Execute(data json.RawMessage) error {
-	// Your custom action logic here
-}
-```
-
- 
-1. Register the new action in the `dispatcher.go` file:
-
-```go
-
-func NewDispatcher() *Dispatcher {
-	d := &Dispatcher{
-		actions: map[string]Action{},
-	}
-
-	// Register actions here
-	d.RegisterAction("my_action", &MyAction{})
-
-	return d
-}
-```
-
-
-1. Update your SQS messages to include the new action type:
-
-```json
-
-{
-	"type": "my_action",
-	"data": {
-		// Your custom action data
-	}
-}
-```
