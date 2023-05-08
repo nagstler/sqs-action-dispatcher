@@ -1,5 +1,5 @@
 # SQS Action Dispatcher
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Maintainability](https://api.codeclimate.com/v1/badges/fe760284be051623a2d4/maintainability)](https://codeclimate.com/github/nagstler/sqs-action-dispatcher/maintainability)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![CI Build](https://github.com/nagstler/sqs-action-dispatcher/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/nagstler/sqs-action-dispatcher/actions/workflows/main.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/fe760284be051623a2d4/maintainability)](https://codeclimate.com/github/nagstler/sqs-action-dispatcher/maintainability)
 
 The SQS Action Dispatcher is a Go application that polls messages from an AWS Simple Queue Service (SQS) queue, processes the messages concurrently using worker goroutines, and dispatches actions based on the message content.
 
