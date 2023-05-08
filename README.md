@@ -1,0 +1,128 @@
+# SQS Action Dispatcher
+
+The SQS Action Dispatcher is a Go application that polls messages from an AWS Simple Queue Service (SQS) queue, processes the messages concurrently using worker goroutines, and dispatches actions based on the message content.
+## Features
+- Polls messages from an SQS queue in batches for improved throughput
+- Processes messages concurrently using worker goroutines
+- Moves failed messages to a Dead Letter Queue (DLQ) for further inspection
+- Dispatches actions based on message content (e.g., send an SNS notification)
+## Prerequisites
+- Go 1.16 or higher
+- AWS account with an SQS queue and optional DLQ configured
+- AWS CLI or environment variables with access to the SQS queue
+## Getting Started
+1. Clone the repository:
+
+```sh
+
+git clone https://github.com/your_username/sqs-action-dispatcher.git
+```
+
+
+1. Change directory to the project:
+
+```sh
+
+cd sqs-action-dispatcher
+```
+
+
+1. Build the project:
+
+```sh
+
+go build
+```
+
+
+1. Set the AWS credentials and region as environment variables:
+
+```sh
+
+export AWS_ACCESS_KEY_ID=your_access_key
+export AWS_SECRET_ACCESS_KEY=your_secret_key
+export AWS_REGION=your_aws_region
+```
+
+
+1. Set environment variables for the AWS SQS queue URL and DLQ URL:
+
+```sh
+
+export SQS_QUEUE_URL=https://sqs.your_aws_region.amazonaws.com/your_account_id/your_queue_name
+export SQS_DLQ_URL=https://sqs.your_aws_region.amazonaws.com/your_account_id/your_dlq_name
+```
+
+
+1. Run the application:
+
+```sh
+
+./sqs-action-dispatcher
+```
+
+
+
+The application will start polling messages from the configured SQS queue, dispatch actions based on the message content, and move failed messages to the DLQ.
+## SNS Action
+
+The SNS action sends a message to an SNS topic. To use the SNS action, your messages should have the following format:
+
+```json
+
+{
+  "type": "sns",
+  "data": {
+    "topic_arn": "arn:aws:sns:your_aws_region:your_account_id:your_topic_name",
+    "message": "Your message to send"
+  }
+}
+```
+
+
+
+When the SQS Action Dispatcher receives a message with this format, it will send the specified message to the SNS topic.
+## Custom Actions
+
+To add custom actions, follow these steps: 
+1. Create a new file in the `actions` folder, e.g., `my_action.go` 
+2. Define a struct that implements the `Action` interface:
+
+```go
+
+type MyAction struct{}
+
+func (a *MyAction) Execute(data json.RawMessage) error {
+	// Your custom action logic here
+}
+```
+
+ 
+1. Register the new action in the `dispatcher.go` file:
+
+```go
+
+func NewDispatcher() *Dispatcher {
+	d := &Dispatcher{
+		actions: map[string]Action{},
+	}
+
+	// Register actions here
+	d.RegisterAction("my_action", &MyAction{})
+
+	return d
+}
+```
+
+
+1. Update your SQS messages to include the new action type:
+
+```json
+
+{
+	"type": "my_action",
+	"data": {
+		// Your custom action data
+	}
+}
+```
