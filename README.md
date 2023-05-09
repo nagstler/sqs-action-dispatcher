@@ -1,5 +1,5 @@
 # SQS Action Dispatcher
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![CI Build](https://github.com/nagstler/sqs-action-dispatcher/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/nagstler/sqs-action-dispatcher/actions/workflows/main.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/fe760284be051623a2d4/maintainability)](https://codeclimate.com/github/nagstler/sqs-action-dispatcher/maintainability)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![CI Build](https://github.com/nagstler/sqs-action-dispatcher/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/nagstler/sqs-action-dispatcher/actions/workflows/main.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/fe760284be051623a2d4/maintainability)](https://codeclimate.com/github/nagstler/sqs-action-dispatcher/maintainability) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
 The SQS Action Dispatcher is a Go application that polls messages from an AWS Simple Queue Service (SQS) queue, processes the messages concurrently using worker goroutines, and dispatches actions based on the message content.
 
@@ -83,6 +83,16 @@ The SNS action sends a message to an SNS topic. To use the SNS action, your mess
 }
 ```
 
-
-
 When the SQS Action Dispatcher receives a message with this format, it will send the specified message to the SNS topic.
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/nagstler/sqs-action-dispatcher. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/nagstler/sqs-action-dispatcher/blob/main/CODE_OF_CONDUCT.md).
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+## Code of Conduct
+
+Everyone interacting in the Chatgpt::Ruby project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/nagstler/chatgpt-ruby/blob/main/CODE_OF_CONDUCT.md).
