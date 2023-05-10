@@ -38,7 +38,7 @@ jobs:
     - name: Test and coverage report
       run: |
         go test -coverprofile=c.out ./...
-        ./cc-test-reporter after-build --exit-code $?
+        ./cc-test-reporter after-build --exit-code $? -t ${{ github.workspace }}
 
     - name: Code Climate Test Coverage
       uses: paambaati/codeclimate-action@v2.7.5
@@ -47,5 +47,6 @@ jobs:
       with:
         coverageCommand: go test -v -coverprofile=c.out ./...
         debug: true
+
 
 
