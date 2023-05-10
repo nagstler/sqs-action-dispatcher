@@ -29,3 +29,14 @@ jobs:
     - name: Build
       working-directory: ./cmd/sqs-action-dispatcher
       run: go build -v .
+
+    - name: Test
+      run: go test ./... -coverprofile c.out
+
+    - name: Send coverage to Code Climate
+      uses: paambaati/codeclimate-action@v3.0.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
+      with:
+        coverageCommand: go tool cover -json ./c.out > coverage.json
+        coverageLocations: "coverage.json:json"
