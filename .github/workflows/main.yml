@@ -30,26 +30,6 @@ jobs:
       working-directory: ./cmd/sqs-action-dispatcher
       run: go build -v .
 
-    - name: Download Code Climate Test Reporter
-      run: |
-        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        chmod +x ./cc-test-reporter
-
-    - name: Test and coverage report
-      run: |
-        go test -covermode=count -coverprofile=c.out ./...
-        go tool cover -func=c.out
-        go get github.com/mattn/goveralls
-        goveralls -coverprofile=c.out -service=github
-
-    - name: Code Climate Test Coverage
-      uses: paambaati/codeclimate-action@v2.7.5
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      with:
-        coverageCommand: go test -v -coverprofile=c.out ./...
-        debug: true
-
 
 
 
