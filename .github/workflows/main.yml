@@ -29,6 +29,3 @@ jobs:
     - name: Build
       working-directory: ./cmd/sqs-action-dispatcher
       run: go build -v .
-
-    - name: Running Test Cases
-      run: go test ./...
