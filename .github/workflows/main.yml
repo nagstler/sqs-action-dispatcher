@@ -30,6 +30,11 @@ jobs:
       working-directory: ./cmd/sqs-action-dispatcher
       run: go build -v .
 
+    - name: Download Code Climate Test Reporter
+      run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        chmod +x ./cc-test-reporter
+
     - name: Test and coverage report
       run: |
         go test -coverprofile=c.out ./...
@@ -42,4 +47,5 @@ jobs:
       with:
         coverageCommand: go test -v -coverprofile=c.out ./...
         debug: true
+
 
