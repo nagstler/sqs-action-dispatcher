@@ -35,10 +35,12 @@ jobs:
         curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
         chmod +x ./cc-test-reporter
 
-    - name: Test and Coverage Report
+    - name: Test and coverage report
       run: |
-        go test -coverprofile=c.out ./...
-        ./cc-test-reporter after-build --exit-code $? -t ${{ github.workspace }}
+        go test -covermode=count -coverprofile=c.out ./...
+        go tool cover -func=c.out
+        go get github.com/mattn/goveralls
+        goveralls -coverprofile=c.out -service=github
 
     - name: Code Climate Test Coverage
       uses: paambaati/codeclimate-action@v2.7.5
@@ -47,6 +49,7 @@ jobs:
       with:
         coverageCommand: go test -v -coverprofile=c.out ./...
         debug: true
+
 
 
 
